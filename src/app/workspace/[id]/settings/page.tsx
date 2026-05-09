@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { Header } from "@/components/ui/Header";
 import { WorkspaceSettingsForm } from "@/components/ui/WorkspaceSettingsForm";
 import { WorkspaceDiscordSettings } from "@/components/ui/WorkspaceDiscordSettings";
+import { WorkspaceGitlabSettings } from "@/components/ui/WorkspaceGitlabSettings";
 import Link from "next/link";
 
 export default async function WorkspaceSettingsPage({
@@ -59,6 +60,12 @@ export default async function WorkspaceSettingsPage({
             workspaceId={id}
             initialGuildId={membership.workspace.discordGuildId}
             initialChannelId={membership.workspace.discordChannelId}
+          />
+          <WorkspaceGitlabSettings
+            workspaceId={id}
+            initialProjectId={membership.workspace.gitlabProjectId}
+            initialBaseUrl={membership.workspace.gitlabBaseUrl}
+            initialWebhookSecret={membership.workspace.gitlabWebhookSecret}
           />
         </div>
       </main>
