@@ -4,6 +4,7 @@ import { redirect, notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { Header } from "@/components/ui/Header";
 import { WorkspaceSettingsForm } from "@/components/ui/WorkspaceSettingsForm";
+import { WorkspaceDiscordSettings } from "@/components/ui/WorkspaceDiscordSettings";
 import Link from "next/link";
 
 export default async function WorkspaceSettingsPage({
@@ -49,10 +50,17 @@ export default async function WorkspaceSettingsPage({
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-8">
           Paramètres du workspace
         </h1>
-        <WorkspaceSettingsForm
-          workspaceId={id}
-          currentName={membership.workspace.name}
-        />
+        <div className="space-y-8">
+          <WorkspaceSettingsForm
+            workspaceId={id}
+            currentName={membership.workspace.name}
+          />
+          <WorkspaceDiscordSettings
+            workspaceId={id}
+            initialGuildId={membership.workspace.discordGuildId}
+            initialChannelId={membership.workspace.discordChannelId}
+          />
+        </div>
       </main>
     </div>
   );
