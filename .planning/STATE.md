@@ -1,8 +1,8 @@
 # Project State
 
 ## Current Status
-- **Phase:** 4 — Discord Integration (next, can parallelize with 5)
-- **Current Plan:** Phase 3 complete (4/4 plans verified)
+- **Phase:** 4 — Discord Integration (in progress: 2/3 plans complete)
+- **Current Plan:** 04-02 complete. Next: 04-03 (settings UI + notify wiring + Discord ID binding)
 - **Milestone:** 1 — v1.0 Foundation to Launch
 - **Last updated:** 2026-05-09
 
@@ -12,7 +12,7 @@
 | 1 — Bootstrap & Infra | ✅ Complete (3/3 plans verified) |
 | 2 — Auth & Workspaces | ✅ Complete (3/3 plans verified) |
 | 3 — Core Task Management | ✅ Complete (4/4 plans verified) |
-| 4 — Discord Integration | 🔲 Not started |
+| 4 — Discord Integration | 🟡 In progress (2/3 plans verified) |
 | 5 — GitLab Integration | 🔲 Not started |
 | 6 — Notifications & Polish | 🔲 Not started |
 
@@ -33,9 +33,14 @@
 - KanbanPageClient créé comme wrapper client — point d'injection du TaskModal en plan 04
 - TaskCard stub créé pour compatibilité TypeScript (plan 03-02 livre l'implémentation complète)
 - Sérialisation explicite des dates Prisma en ISO strings dans les pages server
+- resolveContext (bot/src/lib) — pipeline guild→workspace + Discord user→app user, error-as-data avec union typé
+- Discord embeds : couleurs par priorité (urgent=rouge, high=orange, medium=bleu, low=gris)
+- /task done accepte un préfixe court (4+ chars) via Prisma startsWith ; ambigu si N≥2 matches
+- Toutes les queries Prisma des handlers Discord scoped par workspaceId — cross-workspace impossible par construction
+- bot/src/lib/embeds.ts utilise un fallback APP_URL chain (NEXT_PUBLIC_APP_URL ?? APP_URL ?? default)
 
 ## Stopped At
-03-03-PLAN.md — Complete. Next: 03-04-PLAN.md (TaskModal)
+04-02-PLAN.md — Complete. Next: 04-03-PLAN.md (settings UI Discord + notify wiring app→bot)
 
 ## Last session
-2026-05-09 — Completed 03-03-PLAN.md: @dnd-kit install, KanbanColumn/KanbanBoard/KanbanPageClient, page /workspace/[id]/kanban
+2026-05-09 — Completed 04-02-PLAN.md: resolveContext + embeds helpers, 3 handlers (/task add, /task list, /task done), dispatcher wired to real handlers

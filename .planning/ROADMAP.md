@@ -89,8 +89,8 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 04-01-PLAN.md — Schema Prisma extensions Discord, structure bot/, discord.js v14 client, register script, service docker-compose discord-bot + [BLOCKING] db push
-- [ ] 04-02-PLAN.md — Implémentation /task add, /task list, /task done avec embeds Discord et résolution guild→workspace / userDiscord→userApp
+- [x] 04-01-PLAN.md — Schema Prisma extensions Discord, structure bot/, discord.js v14 client, register script, service docker-compose discord-bot + [BLOCKING] db push
+- [x] 04-02-PLAN.md — Implémentation /task add, /task list, /task done avec embeds Discord et résolution guild→workspace / userDiscord→userApp
 - [ ] 04-03-PLAN.md — Notifications création/complétion via /notify, UI settings Discord (workspace + profil user), routes API config Discord
 
 ### Phase 5: GitLab Integration
@@ -138,6 +138,6 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Bootstrap & Infrastructure | 3/3 | ✅ Complete | 2026-05-09 |
 | 2. Auth & Workspaces | 3/3 | ✅ Complete | 2026-05-09 |
 | 3. Core Task Management | 4/4 | ✅ Complete | 2026-05-09 |
-| 4. Discord Integration | 0/3 | Not started | - |
+| 4. Discord Integration | 2/3 | 🟡 In progress | - |
 | 5. GitLab Integration | 0/2 | Not started | - |
 | 6. Notifications & Polish | 0/3 | Not started | - |
