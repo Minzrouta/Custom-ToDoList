@@ -26,18 +26,34 @@ export default async function WorkspaceKanbanPage({
 
   if (!membership) notFound();
 
-  // Charger toutes les tâches du workspace avec relations nécessaires
-  const rawTasks = await prisma.task.findMany({
-    where: { workspaceId: id },
-    include: {
-      category: { select: { id: true, name: true, color: true } },
-      assignee: { select: { id: true, name: true, image: true } },
-      tags: { include: { tag: { select: { id: true, name: true } } } },
-      subtasks: { select: { completed: true } },
-      _count: { select: { comments: true } },
-    },
-    orderBy: [{ priority: "desc" }, { createdAt: "desc" }],
-  });
+  // Charger tâches, catégories, tags, membres en parallèle
+  const [rawTasks, categories, tags, members] = await Promise.all([
+    prisma.task.findMany({
+      where: { workspaceId: id },
+      include: {
+        category: { select: { id: true, name: true, color: true } },
+        assignee: { select: { id: true, name: true, image: true } },
+        tags: { include: { tag: { select: { id: true, name: true } } } },
+        subtasks: { select: { completed: true } },
+        _count: { select: { comments: true } },
+      },
+      orderBy: [{ priority: "desc" }, { createdAt: "desc" }],
+    }),
+    prisma.category.findMany({
+      where: { workspaceId: id },
+      orderBy: { name: "asc" },
+    }),
+    prisma.tag.findMany({
+      where: { workspaceId: id },
+      orderBy: { name: "asc" },
+    }),
+    prisma.workspaceMember.findMany({
+      where: { workspaceId: id },
+      include: { user: { select: { id: true, name: true, image: true } } },
+    }),
+  ]);
+
+  const memberUsers = members.map((m) => m.user);
 
   // Sérialiser les tâches en TaskCardData (dates → ISO string)
   const tasks: TaskCardData[] = rawTasks.map((t) => ({
@@ -96,7 +112,13 @@ export default async function WorkspaceKanbanPage({
           </Link>
         </div>
 
-        <KanbanPageClient workspaceId={id} initialTasks={tasksByStatus} />
+        <KanbanPageClient
+          workspaceId={id}
+          initialTasks={tasksByStatus}
+          categories={categories}
+          tags={tags}
+          members={memberUsers}
+        />
       </main>
     </div>
   );
