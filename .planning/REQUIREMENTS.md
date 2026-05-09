@@ -26,14 +26,14 @@
 - Une tâche peut avoir plusieurs tags
 - Filtre par tag dans les vues
 
-### FR-05 — Tâches (CRUD complet)
+### FR-05 — Tâches (CRUD complet) ✅ (partiel — UI 03-02)
 - Champs : titre, description (markdown), statut, priorité, catégorie, tags, assignee, due date, workspace
 - Statuts : `todo` | `in_progress` | `done` | `cancelled`
 - Priorités : `low` | `medium` | `high` | `urgent`
 - Sous-tâches (checklist simple)
 - Commentaires sur une tâche
 
-### FR-06 — Vues
+### FR-06 — Vues ✅ (partiel — liste 03-02, kanban 03-03)
 - **Vue Liste** : tâches filtrables/triables par statut, priorité, catégorie, tag, assignee
 - **Vue Kanban** : colonnes par statut, drag & drop
 - Filtres persistants par workspace

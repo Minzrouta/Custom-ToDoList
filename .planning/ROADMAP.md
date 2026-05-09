@@ -137,7 +137,7 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Bootstrap & Infrastructure | 3/3 | ✅ Complete | 2026-05-09 |
 | 2. Auth & Workspaces | 3/3 | ✅ Complete | 2026-05-09 |
-| 3. Core Task Management | 1/4 | In progress | - |
+| 3. Core Task Management | 2/4 | In progress | - |
 | 4. Discord Integration | 0/3 | Not started | - |
 | 5. GitLab Integration | 0/2 | Not started | - |
 | 6. Notifications & Polish | 0/3 | Not started | - |
