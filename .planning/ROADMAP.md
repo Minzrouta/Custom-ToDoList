@@ -48,12 +48,12 @@ Plans:
   5. User peut inviter un autre user dans un workspace (par email)
   6. Routes protégées redirigent vers login si non authentifié
   7. Isolation workspace : user ne voit pas les données d'un autre workspace
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 02-01: NextAuth.js config, OAuth Google + GitHub, schema User/Session/Account
-- [ ] 02-02: Schema Workspace/WorkspaceMember, API routes workspaces, workspaces par défaut
-- [ ] 02-03: UI — pages login, dashboard workspaces, settings workspace, invitation
+- [ ] 02-01-PLAN.md — NextAuth.js v5 config, OAuth Google + GitHub, schema Account/Session/VerificationToken (+ db push)
+- [ ] 02-02-PLAN.md — src/proxy.ts (protection routes), API routes workspaces CRUD + invitation membres
+- [ ] 02-03-PLAN.md — UI pages signin/dashboard/workspace/settings, composants Header/WorkspaceCard/modals
 
 ### Phase 3: Core Task Management
 **Goal**: CRUD tâches complet avec statuts, priorités, catégories (Boulot/Ecole/Perso/custom), tags, sous-tâches, commentaires. Vues Kanban (drag & drop) et liste avec filtres.
