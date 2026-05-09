@@ -2,6 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { requireMembership } from "@/lib/auth-helpers";
+import { notifyDiscord } from "@/lib/discord-notify";
 
 // GET /api/workspaces/[id]/tasks/[taskId] — détail complet
 export async function GET(
@@ -66,9 +67,10 @@ export async function PATCH(
     const body = await request.json();
     const { title, description, status, priority, dueDate, categoryId, assigneeId, tagIds } = body;
 
-    // Vérifier que la tâche appartient bien au workspace
+    // Vérifier que la tâche appartient bien au workspace + récupérer l'ancien statut
     const existing = await prisma.task.findUnique({
       where: { id: taskId, workspaceId: id },
+      select: { id: true, status: true },
     });
     if (!existing) {
       return Response.json({ error: "Tâche introuvable" }, { status: 404 });
@@ -101,6 +103,24 @@ export async function PATCH(
         _count: { select: { comments: true } },
       },
     });
+
+    // Fire-and-forget : si la tâche vient de passer à "done", notifier le bot Discord.
+    const transitionedToDone = existing.status !== "done" && task.status === "done";
+    if (transitionedToDone) {
+      void notifyDiscord({
+        type: "task.completed",
+        workspaceId: id,
+        task: {
+          id: task.id,
+          title: task.title,
+          priority: task.priority,
+          status: task.status,
+          category: task.category ? { name: task.category.name } : null,
+          dueDate: task.dueDate,
+        },
+        actor: { name: session.user.name ?? null },
+      });
+    }
 
     return Response.json({ data: task });
   } catch (error) {

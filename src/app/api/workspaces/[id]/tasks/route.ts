@@ -2,6 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { requireMembership } from "@/lib/auth-helpers";
+import { notifyDiscord } from "@/lib/discord-notify";
 import { TaskStatus, Priority } from "@prisma/client";
 
 // GET /api/workspaces/[id]/tasks — liste avec filtres optionnels
@@ -104,6 +105,22 @@ export async function POST(
         subtasks: true,
         _count: { select: { comments: true } },
       },
+    });
+
+    // Fire-and-forget : notifier le bot Discord après création.
+    // Ne PAS await — une notification ratée ne doit pas bloquer la réponse.
+    void notifyDiscord({
+      type: "task.created",
+      workspaceId: id,
+      task: {
+        id: task.id,
+        title: task.title,
+        priority: task.priority,
+        status: task.status,
+        category: task.category ? { name: task.category.name } : null,
+        dueDate: task.dueDate,
+      },
+      actor: { name: session.user.name ?? null },
     });
 
     return Response.json({ data: task }, { status: 201 });
