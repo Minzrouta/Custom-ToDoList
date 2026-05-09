@@ -50,6 +50,25 @@ services:
       start_period: 10s
     restart: unless-stopped
 
+  discord-bot:
+    build:
+      context: .
+      dockerfile: bot/Dockerfile
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL}
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
+      APP_URL: ${NEXT_PUBLIC_APP_URL:-https://tasks.bantou.me}
+      NOTIFY_PORT: "8080"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - coolify
+    # Pas d'exposition de port public — accès interne via réseau Docker uniquement
+    restart: unless-stopped
+
 volumes:
   postgres_data:
     driver: local
