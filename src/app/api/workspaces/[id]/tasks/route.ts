@@ -38,6 +38,7 @@ export async function GET(
         ...(assigneeId ? { assigneeId } : {}),
         ...(tagId ? { tags: { some: { tagId } } } : {}),
       },
+      // gitlabIssueIid + gitlabIssueUrl renvoyés implicitement (scalaires Task)
       include: {
         category: { select: { id: true, name: true, color: true } },
         assignee: { select: { id: true, name: true, image: true } },
@@ -98,6 +99,7 @@ export async function POST(
           ? { tags: { create: (tagIds as string[]).map((tagId) => ({ tagId })) } }
           : {}),
       },
+      // gitlabIssueIid + gitlabIssueUrl renvoyés implicitement (scalaires Task)
       include: {
         category: { select: { id: true, name: true, color: true } },
         assignee: { select: { id: true, name: true, image: true } },

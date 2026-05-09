@@ -23,6 +23,7 @@ export async function GET(
 
     const task = await prisma.task.findUnique({
       where: { id: taskId, workspaceId: id },
+      // gitlabIssueIid + gitlabIssueUrl renvoyés implicitement (scalaires Task)
       include: {
         category: { select: { id: true, name: true, color: true } },
         assignee: { select: { id: true, name: true, image: true } },
@@ -95,6 +96,7 @@ export async function PATCH(
             }
           : {}),
       },
+      // gitlabIssueIid + gitlabIssueUrl renvoyés implicitement (scalaires Task)
       include: {
         category: { select: { id: true, name: true, color: true } },
         assignee: { select: { id: true, name: true, image: true } },
