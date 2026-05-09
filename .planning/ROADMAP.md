@@ -11,7 +11,7 @@ Application web de gestion de tâches multi-utilisateur auto-hébergée. Le proj
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
 - [x] **Phase 1: Bootstrap & Infrastructure** - Next.js 15, Docker Compose, déploiement Coolify de base
-- [ ] **Phase 2: Auth & Workspaces** - OAuth Google/GitHub, workspaces multi-user
+- [x] **Phase 2: Auth & Workspaces** - OAuth Google/GitHub, workspaces multi-user
 - [ ] **Phase 3: Core Task Management** - CRUD tâches, catégories, tags, Kanban, liste
 - [ ] **Phase 4: Discord Integration** - Bot slash commands + notifications
 - [ ] **Phase 5: GitLab Integration** - Webhooks entrants, import issues
@@ -136,7 +136,7 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Bootstrap & Infrastructure | 3/3 | ✅ Complete | 2026-05-09 |
-| 2. Auth & Workspaces | 0/3 | Not started | - |
+| 2. Auth & Workspaces | 3/3 | ✅ Complete | 2026-05-09 |
 | 3. Core Task Management | 0/4 | Not started | - |
 | 4. Discord Integration | 0/3 | Not started | - |
 | 5. GitLab Integration | 0/2 | Not started | - |

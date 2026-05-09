@@ -1,7 +1,7 @@
 # Project State
 
 ## Current Status
-- **Phase:** 2 — Auth & Workspaces (next)
+- **Phase:** 3 — Core Task Management (next)
 - **Milestone:** 1 — v1.0 Foundation to Launch
 - **Last updated:** 2026-05-09
 
@@ -9,7 +9,7 @@
 | Phase | Status |
 |-------|--------|
 | 1 — Bootstrap & Infra | ✅ Complete (3/3 plans verified) |
-| 2 — Auth & Workspaces | 🔲 Not started |
+| 2 — Auth & Workspaces | ✅ Complete (3/3 plans verified) |
 | 3 — Core Task Management | 🔲 Not started |
 | 4 — Discord Integration | 🔲 Not started |
 | 5 — GitLab Integration | 🔲 Not started |
