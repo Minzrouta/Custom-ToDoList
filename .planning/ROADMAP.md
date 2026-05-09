@@ -86,12 +86,12 @@ Plans:
   4. Notification envoyée dans le channel configuré à la création d'une tâche
   5. Notification envoyée à la complétion d'une tâche
   6. UI settings : associer un channel Discord à un workspace
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 04-01: Discord bot discord.js, service Docker, slash commands register
-- [ ] 04-02: Implémentation commandes /task add, /task list, /task done
-- [ ] 04-03: Système de notifications Discord, config channel par workspace
+- [ ] 04-01-PLAN.md — Schema Prisma extensions Discord, structure bot/, discord.js v14 client, register script, service docker-compose discord-bot + [BLOCKING] db push
+- [ ] 04-02-PLAN.md — Implémentation /task add, /task list, /task done avec embeds Discord et résolution guild→workspace / userDiscord→userApp
+- [ ] 04-03-PLAN.md — Notifications création/complétion via /notify, UI settings Discord (workspace + profil user), routes API config Discord
 
 ### Phase 5: GitLab Integration
 **Goal**: Webhook GitLab fonctionnel — une issue GitLab créée génère automatiquement une tâche dans l'app, avec lien retour vers l'issue.
