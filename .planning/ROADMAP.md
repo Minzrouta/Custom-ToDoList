@@ -67,13 +67,13 @@ Plans:
   5. Tags libres créables et assignables à plusieurs tâches
   6. Sous-tâches (checklist) fonctionnelles dans une tâche
   7. Commentaires sur une tâche fonctionnels
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 03-01: Schema Prisma Task/Category/Tag/SubTask/Comment, API routes CRUD
-- [ ] 03-02: Vue Liste avec filtres et tri
-- [ ] 03-03: Vue Kanban avec drag & drop (dnd-kit)
-- [ ] 03-04: Modal création/édition tâche complet, catégories, tags
+- [ ] 03-01-PLAN.md — Schema Prisma Task/Category/Tag/SubTask/Comment, src/lib/auth-helpers.ts, 9 routes API CRUD + [BLOCKING] db push
+- [ ] 03-02-PLAN.md — TaskCard, FilterBar, ListView, page /workspace/[id]/list
+- [ ] 03-03-PLAN.md — KanbanColumn, KanbanBoard (dnd-kit), page /workspace/[id]/kanban
+- [ ] 03-04-PLAN.md — TaskModal complet (sous-tâches + commentaires), ListPageClient, KanbanPageClient, page workspace mise à jour + seed catégories
 
 ### Phase 4: Discord Integration
 **Goal**: Bot Discord opérationnel avec slash commands (/task add, /task list, /task done) et notifications dans un channel configuré par workspace.
@@ -137,7 +137,7 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Bootstrap & Infrastructure | 3/3 | ✅ Complete | 2026-05-09 |
 | 2. Auth & Workspaces | 3/3 | ✅ Complete | 2026-05-09 |
-| 3. Core Task Management | 0/4 | Not started | - |
+| 3. Core Task Management | 1/4 | In progress | - |
 | 4. Discord Integration | 0/3 | Not started | - |
 | 5. GitLab Integration | 0/2 | Not started | - |
 | 6. Notifications & Polish | 0/3 | Not started | - |
