@@ -29,12 +29,12 @@ Application web de gestion de tâches multi-utilisateur auto-hébergée. Le proj
   3. `tasks.bantou.me` répond HTTP 200 via Traefik/Coolify
   4. Prisma migrate déploie le schema initial sans erreur
   5. Health check `/api/health` répond JSON `{ status: "ok" }`
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: Initialisation Next.js 15, TypeScript, Tailwind, ESLint
-- [ ] 01-02: Prisma setup, schema User/Workspace de base, Docker Compose
-- [ ] 01-03: Configuration Coolify, Traefik labels, déploiement tasks.bantou.me
+- [ ] 01-01-PLAN.md — Next.js 15 App Router, TypeScript strict, Tailwind dark mode, page placeholder
+- [ ] 01-02-PLAN.md — Prisma setup, schema User/Workspace/WorkspaceMember, health check /api/health
+- [ ] 01-03-PLAN.md — Dockerfile multi-stage, docker-compose.yml Coolify, labels Traefik tasks.bantou.me
 
 ### Phase 2: Auth & Workspaces
 **Goal**: Utilisateurs se connectent via OAuth Google/GitHub, ont des workspaces (Boulot/Ecole/Perso par défaut), peuvent inviter d'autres users.
@@ -135,7 +135,7 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Bootstrap & Infrastructure | 0/3 | Not started | - |
+| 1. Bootstrap & Infrastructure | 0/3 | Planned | - |
 | 2. Auth & Workspaces | 0/3 | Not started | - |
 | 3. Core Task Management | 0/4 | Not started | - |
 | 4. Discord Integration | 0/3 | Not started | - |
