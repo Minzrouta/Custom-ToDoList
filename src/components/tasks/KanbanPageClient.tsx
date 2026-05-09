@@ -62,6 +62,8 @@ export function KanbanPageClient({
       tags: task.tags,
       subtasks: [],
       _count: task._count,
+      gitlabIssueIid: task.gitlabIssueIid,
+      gitlabIssueUrl: task.gitlabIssueUrl,
     });
   }
 

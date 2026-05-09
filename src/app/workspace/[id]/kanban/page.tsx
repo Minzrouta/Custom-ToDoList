@@ -27,6 +27,7 @@ export default async function WorkspaceKanbanPage({
   if (!membership) notFound();
 
   // Charger tâches, catégories, tags, membres en parallèle
+  // task.gitlabIssueIid + task.gitlabIssueUrl ramenés via include (scalaires)
   const [rawTasks, categories, tags, members] = await Promise.all([
     prisma.task.findMany({
       where: { workspaceId: id },
@@ -67,6 +68,8 @@ export default async function WorkspaceKanbanPage({
     tags: t.tags.map((tt) => ({ tag: tt.tag })),
     subtasks: t.subtasks,
     _count: { comments: t._count.comments },
+    gitlabIssueIid: t.gitlabIssueIid,
+    gitlabIssueUrl: t.gitlabIssueUrl,
   }));
 
   // Grouper par statut pour le Kanban

@@ -49,6 +49,8 @@ export interface TaskModalTask {
   tags: { tag: { id: string; name: string } }[];
   subtasks: SubTask[];
   _count: { comments: number };
+  gitlabIssueIid: number | null;
+  gitlabIssueUrl: string | null;
 }
 
 interface TaskModalProps {
@@ -369,6 +371,23 @@ export function TaskModal({
             ×
           </button>
         </div>
+
+        {isEditing && task?.gitlabIssueUrl && (
+          <div className="px-6 pt-4">
+            <div className="flex items-center gap-2 text-sm text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-900/40 rounded-lg px-3 py-2">
+              <span aria-hidden="true">🦊</span>
+              <span>Issue GitLab :</span>
+              <a
+                href={task.gitlabIssueUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium underline hover:no-underline"
+              >
+                #{task.gitlabIssueIid ?? "?"}
+              </a>
+            </div>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {/* Titre */}

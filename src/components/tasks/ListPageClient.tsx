@@ -62,6 +62,8 @@ export function ListPageClient({
       tags: task.tags,
       subtasks: [],
       _count: task._count,
+      gitlabIssueIid: task.gitlabIssueIid,
+      gitlabIssueUrl: task.gitlabIssueUrl,
     });
   }
 

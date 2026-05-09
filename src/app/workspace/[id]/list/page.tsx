@@ -24,6 +24,7 @@ export default async function WorkspaceListPage({
   if (!membership) notFound();
 
   // Charger tâches, catégories, tags, membres en parallèle
+  // task.gitlabIssueIid + task.gitlabIssueUrl ramenés via include (scalaires)
   const [tasks, categories, tags, members] = await Promise.all([
     prisma.task.findMany({
       where: { workspaceId: id },

@@ -17,6 +17,8 @@ export interface TaskCardData {
   tags: { tag: { id: string; name: string } }[];
   subtasks: { completed: boolean }[];
   _count: { comments: number };
+  gitlabIssueIid: number | null;
+  gitlabIssueUrl: string | null;
 }
 
 interface TaskCardProps {
@@ -97,8 +99,8 @@ export function TaskCard({ task, onClick }: TaskCardProps) {
         </div>
       </div>
 
-      {/* Ligne 2 : catégorie + tags */}
-      {(task.category || task.tags.length > 0) && (
+      {/* Ligne 2 : catégorie + tags + badge GitLab */}
+      {(task.category || task.tags.length > 0 || task.gitlabIssueUrl) && (
         <div className="flex flex-wrap gap-1 mb-2">
           {task.category && (
             <span
@@ -116,6 +118,19 @@ export function TaskCard({ task, onClick }: TaskCardProps) {
               #{tag.name}
             </span>
           ))}
+          {task.gitlabIssueUrl && (
+            <a
+              href={task.gitlabIssueUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="text-xs px-2 py-0.5 rounded-full font-medium bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/60 transition-colors inline-flex items-center gap-1"
+              title="Ouvrir l'issue GitLab"
+            >
+              <span aria-hidden="true">🦊</span>
+              GitLab #{task.gitlabIssueIid ?? "?"}
+            </a>
+          )}
         </div>
       )}
 
