@@ -1,105 +1,143 @@
-# Roadmap — Custom-ToDoList v1
+# Roadmap: Custom-ToDoList
 
-## Milestone 1 — v1.0 Foundation to Launch
+## Overview
 
----
+Application web de gestion de tâches multi-utilisateur auto-hébergée. Le projet part de zéro (repo vide) et aboutit à une app déployée sur tasks.bantou.me avec auth OAuth, gestion de tâches complète par workspace, intégrations Discord et GitLab.
 
-### Phase 1 — Project Bootstrap & Infrastructure
-**Goal:** Repo initialisé, stack configurée, déploiement de base fonctionnel sur Coolify.
+## Phases
 
-**Deliverables:**
-- Next.js 15 App Router initialisé avec TypeScript
-- Prisma + PostgreSQL configuré (schema de base)
-- Docker Compose prêt pour Coolify (frontend + postgres)
-- `tasks.bantou.me` accessible (page placeholder)
-- CI : lint + type-check sur push
+**Phase Numbering:**
+- Integer phases (1, 2, 3): Planned milestone work
+- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-**Requirements:** NFR-01, NFR-03
+- [ ] **Phase 1: Bootstrap & Infrastructure** - Next.js 15, Docker Compose, déploiement Coolify de base
+- [ ] **Phase 2: Auth & Workspaces** - OAuth Google/GitHub, workspaces multi-user
+- [ ] **Phase 3: Core Task Management** - CRUD tâches, catégories, tags, Kanban, liste
+- [ ] **Phase 4: Discord Integration** - Bot slash commands + notifications
+- [ ] **Phase 5: GitLab Integration** - Webhooks entrants, import issues
+- [ ] **Phase 6: Notifications & Polish** - Notifications in-app, dark mode, recherche, finition
 
----
+## Phase Details
 
-### Phase 2 — Auth & Workspaces
-**Goal:** Utilisateurs peuvent se connecter via OAuth et accéder à leurs workspaces.
+### Phase 1: Bootstrap & Infrastructure
+**Goal**: Repo initialisé avec Next.js 15 App Router, Prisma + PostgreSQL configuré, Docker Compose prêt pour Coolify, app accessible sur tasks.bantou.me avec page placeholder.
+**Depends on**: Nothing (first phase)
+**Requirements**: NFR-01, NFR-03
+**Success Criteria** (what must be TRUE):
+  1. `npm run build` et `npm run dev` fonctionnent sans erreur
+  2. Docker Compose démarre les services (next + postgres) sans erreur
+  3. `tasks.bantou.me` répond HTTP 200 via Traefik/Coolify
+  4. Prisma migrate déploie le schema initial sans erreur
+  5. Health check `/api/health` répond JSON `{ status: "ok" }`
+**Plans**: TBD
 
-**Deliverables:**
-- NextAuth.js configuré (Google + GitHub OAuth)
-- Schema Prisma : User, Workspace, WorkspaceMember
-- Workspaces par défaut à la création (Boulot, Ecole, Perso)
-- Pages : login, dashboard (liste workspaces), settings workspace
-- Invitation d'un user dans un workspace (par email)
-- Middleware de protection des routes
+Plans:
+- [ ] 01-01: Initialisation Next.js 15, TypeScript, Tailwind, ESLint
+- [ ] 01-02: Prisma setup, schema User/Workspace de base, Docker Compose
+- [ ] 01-03: Configuration Coolify, Traefik labels, déploiement tasks.bantou.me
 
-**Requirements:** FR-01, FR-02, NFR-02
+### Phase 2: Auth & Workspaces
+**Goal**: Utilisateurs se connectent via OAuth Google/GitHub, ont des workspaces (Boulot/Ecole/Perso par défaut), peuvent inviter d'autres users.
+**Depends on**: Phase 1
+**Requirements**: FR-01, FR-02, NFR-02
+**Success Criteria** (what must be TRUE):
+  1. Login OAuth Google fonctionne end-to-end (redirect, session, profil)
+  2. Login OAuth GitHub fonctionne end-to-end
+  3. Workspaces par défaut créés automatiquement au premier login
+  4. User peut créer un workspace custom
+  5. User peut inviter un autre user dans un workspace (par email)
+  6. Routes protégées redirigent vers login si non authentifié
+  7. Isolation workspace : user ne voit pas les données d'un autre workspace
+**Plans**: TBD
 
----
+Plans:
+- [ ] 02-01: NextAuth.js config, OAuth Google + GitHub, schema User/Session/Account
+- [ ] 02-02: Schema Workspace/WorkspaceMember, API routes workspaces, workspaces par défaut
+- [ ] 02-03: UI — pages login, dashboard workspaces, settings workspace, invitation
 
-### Phase 3 — Core Task Management
-**Goal:** CRUD tâches complet avec catégories et tags, vues liste et kanban.
+### Phase 3: Core Task Management
+**Goal**: CRUD tâches complet avec statuts, priorités, catégories (Boulot/Ecole/Perso/custom), tags, sous-tâches, commentaires. Vues Kanban (drag & drop) et liste avec filtres.
+**Depends on**: Phase 2
+**Requirements**: FR-03, FR-04, FR-05, FR-06
+**Success Criteria** (what must be TRUE):
+  1. Tâche créée/éditée/supprimée avec tous les champs (titre, desc markdown, statut, priorité, catégorie, tags, assignee, due date)
+  2. Vue Kanban affiche les colonnes par statut avec drag & drop fonctionnel
+  3. Vue Liste filtre par statut, priorité, catégorie, tag, assignee
+  4. Catégories par défaut présentes + création de catégorie custom possible
+  5. Tags libres créables et assignables à plusieurs tâches
+  6. Sous-tâches (checklist) fonctionnelles dans une tâche
+  7. Commentaires sur une tâche fonctionnels
+**Plans**: TBD
 
-**Deliverables:**
-- Schema Prisma : Task, Category, Tag, Comment, SubTask
-- API routes : CRUD tâches, catégories, tags
-- Vue Liste avec filtres (statut, priorité, catégorie, tag)
-- Vue Kanban avec drag & drop (statuts)
-- Modal de création/édition de tâche (tous les champs FR-05)
-- Catégories par défaut + custom
-- Tags libres
+Plans:
+- [ ] 03-01: Schema Prisma Task/Category/Tag/SubTask/Comment, API routes CRUD
+- [ ] 03-02: Vue Liste avec filtres et tri
+- [ ] 03-03: Vue Kanban avec drag & drop (dnd-kit)
+- [ ] 03-04: Modal création/édition tâche complet, catégories, tags
 
-**Requirements:** FR-03, FR-04, FR-05, FR-06
+### Phase 4: Discord Integration
+**Goal**: Bot Discord opérationnel avec slash commands (/task add, /task list, /task done) et notifications dans un channel configuré par workspace.
+**Depends on**: Phase 2
+**Requirements**: FR-07
+**Success Criteria** (what must be TRUE):
+  1. `/task add <titre>` crée une tâche dans le workspace lié au serveur Discord
+  2. `/task list` affiche les tâches en cours sous forme d'embed Discord
+  3. `/task done <id>` marque une tâche comme terminée
+  4. Notification envoyée dans le channel configuré à la création d'une tâche
+  5. Notification envoyée à la complétion d'une tâche
+  6. UI settings : associer un channel Discord à un workspace
+**Plans**: TBD
 
----
+Plans:
+- [ ] 04-01: Discord bot discord.js, service Docker, slash commands register
+- [ ] 04-02: Implémentation commandes /task add, /task list, /task done
+- [ ] 04-03: Système de notifications Discord, config channel par workspace
 
-### Phase 4 — Discord Integration
-**Goal:** Bot Discord opérationnel avec slash commands et notifications.
+### Phase 5: GitLab Integration
+**Goal**: Webhook GitLab fonctionnel — une issue GitLab créée génère automatiquement une tâche dans l'app, avec lien retour vers l'issue.
+**Depends on**: Phase 2
+**Requirements**: FR-08, NFR-02
+**Success Criteria** (what must be TRUE):
+  1. Endpoint `/api/webhooks/gitlab` valide le X-Gitlab-Token
+  2. Issue GitLab créée → tâche créée automatiquement avec titre, labels→tags, assignee
+  3. Tâche affiche un lien retour vers l'issue GitLab source
+  4. UI settings : configurer repo GitLab + secret webhook par workspace
+  5. Webhook invalide (mauvais token) → 401 rejeté
+**Plans**: TBD
 
-**Deliverables:**
-- Bot Discord.js déployé (service séparé dans Docker Compose)
-- Slash commands : `/task add`, `/task list`, `/task done`
-- Notifications : création, complétion, assignation
-- UI settings : configurer channel Discord par workspace
-- OAuth Discord optionnel pour lier compte
+Plans:
+- [ ] 05-01: Endpoint webhook GitLab avec validation token, mapping issue→tâche
+- [ ] 05-02: UI settings GitLab par workspace, affichage lien retour sur tâche
 
-**Requirements:** FR-07
+### Phase 6: Notifications & Polish
+**Goal**: Notifications in-app (badge + dropdown), dark mode, recherche globale, page profil, README. App production-ready.
+**Depends on**: Phase 3, Phase 4, Phase 5
+**Requirements**: FR-09, NFR-01, NFR-04
+**Success Criteria** (what must be TRUE):
+  1. Notifications in-app apparaissent pour : assignation, mention, due date J-1, complétion
+  2. Badge de compteur de notifications non lues visible dans le header
+  3. Dark mode fonctionne via toggle (Tailwind dark class)
+  4. Recherche globale trouve des tâches par titre et description
+  5. Page profil utilisateur affiche et permet de modifier nom/avatar
+  6. README contient instructions déploiement Coolify complètes
+**Plans**: TBD
 
----
+Plans:
+- [ ] 06-01: Système notifications in-app (schema, API, badge, dropdown)
+- [ ] 06-02: Dark mode, recherche globale, page profil
+- [ ] 06-03: README, documentation déploiement, polish final
 
-### Phase 5 — GitLab Integration
-**Goal:** Webhook GitLab fonctionnel, import automatique des issues.
+## Progress
 
-**Deliverables:**
-- Endpoint POST `/api/webhooks/gitlab` avec validation X-Gitlab-Token
-- Mapping issue → tâche (titre, labels→tags, assignee)
-- Lien retour vers l'issue sur la tâche
-- UI settings : configurer repo GitLab + secret par workspace
+**Execution Order:**
+Phases execute in order: 1 → 2 → 3 → 4 → 5 → 6
+(Phases 4 and 5 can be parallelized after Phase 2)
 
-**Requirements:** FR-08, NFR-02
-
----
-
-### Phase 6 — Notifications & Polish
-**Goal:** Notifications in-app, finition UX, dark mode, déploiement production stable.
-
-**Deliverables:**
-- Système de notifications in-app (badge + dropdown)
-- Notifications : assignation, mention, due date J-1, complétion
-- Dark mode (Tailwind dark class)
-- Recherche globale
-- Page profil utilisateur
-- README complet + documentation déploiement
-
-**Requirements:** FR-09, NFR-01, NFR-04
-
----
-
-## Phase Summary
-
-| # | Nom | Complexité | Dépend de |
-|---|-----|-----------|-----------|
-| 1 | Bootstrap & Infra | Faible | — |
-| 2 | Auth & Workspaces | Moyenne | 1 |
-| 3 | Core Task Management | Haute | 2 |
-| 4 | Discord Integration | Moyenne | 2 |
-| 5 | GitLab Integration | Faible | 2 |
-| 6 | Notifications & Polish | Moyenne | 3, 4, 5 |
-
-**Phases 4 et 5 peuvent être parallélisées après la Phase 2.**
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 1. Bootstrap & Infrastructure | 0/3 | Not started | - |
+| 2. Auth & Workspaces | 0/3 | Not started | - |
+| 3. Core Task Management | 0/4 | Not started | - |
+| 4. Discord Integration | 0/3 | Not started | - |
+| 5. GitLab Integration | 0/2 | Not started | - |
+| 6. Notifications & Polish | 0/3 | Not started | - |
