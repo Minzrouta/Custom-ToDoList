@@ -12,7 +12,7 @@ Application web de gestion de tâches multi-utilisateur auto-hébergée. Le proj
 
 - [x] **Phase 1: Bootstrap & Infrastructure** - Next.js 15, Docker Compose, déploiement Coolify de base
 - [x] **Phase 2: Auth & Workspaces** - OAuth Google/GitHub, workspaces multi-user
-- [ ] **Phase 3: Core Task Management** - CRUD tâches, catégories, tags, Kanban, liste
+- [x] **Phase 3: Core Task Management** - CRUD tâches, catégories, tags, Kanban, liste
 - [ ] **Phase 4: Discord Integration** - Bot slash commands + notifications
 - [ ] **Phase 5: GitLab Integration** - Webhooks entrants, import issues
 - [ ] **Phase 6: Notifications & Polish** - Notifications in-app, dark mode, recherche, finition
@@ -137,7 +137,7 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5 → 6
 |-------|----------------|--------|-----------|
 | 1. Bootstrap & Infrastructure | 3/3 | ✅ Complete | 2026-05-09 |
 | 2. Auth & Workspaces | 3/3 | ✅ Complete | 2026-05-09 |
-| 3. Core Task Management | 2/4 | In progress | - |
+| 3. Core Task Management | 4/4 | ✅ Complete | 2026-05-09 |
 | 4. Discord Integration | 0/3 | Not started | - |
 | 5. GitLab Integration | 0/2 | Not started | - |
 | 6. Notifications & Polish | 0/3 | Not started | - |
