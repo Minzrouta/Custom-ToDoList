@@ -1,13 +1,7 @@
 // src/app/api/workspaces/[id]/route.ts
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
-
-// Helper : vérifier que l'utilisateur est membre du workspace (isolation)
-async function requireMembership(workspaceId: string, userId: string) {
-  return prisma.workspaceMember.findUnique({
-    where: { userId_workspaceId: { userId, workspaceId } },
-  });
-}
+import { requireMembership } from "@/lib/auth-helpers";
 
 // GET /api/workspaces/[id] — détail d'un workspace
 export async function GET(
