@@ -1,0 +1,27 @@
+{
+  "project": "Custom-ToDoList",
+  "version": "1.0.0",
+  "workflow": {
+    "research": false,
+    "discuss": true,
+    "plan": true,
+    "execute": true,
+    "verify": true
+  },
+  "models": {
+    "default": "sonnet",
+    "planning": "sonnet",
+    "execution": "sonnet"
+  },
+  "preferences": {
+    "language": "fr",
+    "commitStyle": "conventional",
+    "testingApproach": "integration-first",
+    "deployTarget": "coolify"
+  },
+  "integrations": {
+    "vcs": "github",
+    "cicd": "none",
+    "notifications": "discord"
+  }
+}
