@@ -103,11 +103,11 @@ Plans:
   3. Tâche affiche un lien retour vers l'issue GitLab source
   4. UI settings : configurer repo GitLab + secret webhook par workspace
   5. Webhook invalide (mauvais token) → 401 rejeté
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 05-01: Endpoint webhook GitLab avec validation token, mapping issue→tâche
-- [ ] 05-02: UI settings GitLab par workspace, affichage lien retour sur tâche
+- [ ] 05-01-PLAN.md — Schema Prisma extensions GitLab + endpoint webhook /api/webhooks/gitlab/[workspaceId] (validation token timing-safe, mapping issue→tâche, idempotence, notify Discord) + [BLOCKING] db push
+- [ ] 05-02-PLAN.md — UI settings GitLab par workspace (PUT/DELETE OWNER-only avec génération secret randomBytes(32)) + lien retour issue sur TaskCard et TaskModal
 
 ### Phase 6: Notifications & Polish
 **Goal**: Notifications in-app (badge + dropdown), dark mode, recherche globale, page profil, README. App production-ready.
