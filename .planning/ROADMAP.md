@@ -13,7 +13,7 @@ Application web de gestion de tâches multi-utilisateur auto-hébergée. Le proj
 - [x] **Phase 1: Bootstrap & Infrastructure** - Next.js 15, Docker Compose, déploiement Coolify de base
 - [x] **Phase 2: Auth & Workspaces** - OAuth Google/GitHub, workspaces multi-user
 - [x] **Phase 3: Core Task Management** - CRUD tâches, catégories, tags, Kanban, liste
-- [ ] **Phase 4: Discord Integration** - Bot slash commands + notifications
+- [x] **Phase 4: Discord Integration** - Bot slash commands + notifications
 - [ ] **Phase 5: GitLab Integration** - Webhooks entrants, import issues
 - [ ] **Phase 6: Notifications & Polish** - Notifications in-app, dark mode, recherche, finition
 
@@ -91,7 +91,7 @@ Plans:
 Plans:
 - [x] 04-01-PLAN.md — Schema Prisma extensions Discord, structure bot/, discord.js v14 client, register script, service docker-compose discord-bot + [BLOCKING] db push
 - [x] 04-02-PLAN.md — Implémentation /task add, /task list, /task done avec embeds Discord et résolution guild→workspace / userDiscord→userApp
-- [ ] 04-03-PLAN.md — Notifications création/complétion via /notify, UI settings Discord (workspace + profil user), routes API config Discord
+- [x] 04-03-PLAN.md — Notifications création/complétion via /notify, UI settings Discord (workspace + profil user), routes API config Discord
 
 ### Phase 5: GitLab Integration
 **Goal**: Webhook GitLab fonctionnel — une issue GitLab créée génère automatiquement une tâche dans l'app, avec lien retour vers l'issue.
@@ -138,6 +138,6 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5 → 6
 | 1. Bootstrap & Infrastructure | 3/3 | ✅ Complete | 2026-05-09 |
 | 2. Auth & Workspaces | 3/3 | ✅ Complete | 2026-05-09 |
 | 3. Core Task Management | 4/4 | ✅ Complete | 2026-05-09 |
-| 4. Discord Integration | 2/3 | 🟡 In progress | - |
+| 4. Discord Integration | 3/3 | ✅ Complete | 2026-05-09 |
 | 5. GitLab Integration | 0/2 | Not started | - |
 | 6. Notifications & Polish | 0/3 | Not started | - |

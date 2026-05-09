@@ -39,7 +39,7 @@
 - Filtres persistants par workspace
 - Recherche globale (titre / description)
 
-### FR-07 — Intégration Discord
+### FR-07 — Intégration Discord ✅ (v1 livré — 04-03)
 - Bot Discord avec slash commands :
   - `/task add <titre> [priorité] [catégorie]` — crée une tâche
   - `/task list [filtre]` — affiche les tâches en cours
@@ -47,7 +47,7 @@
 - Notifications dans un channel Discord configuré :
   - Tâche créée
   - Tâche complétée
-  - Tâche assignée à un user
+  - Tâche assignée à un user (déféré v2)
 - Config par workspace : channel Discord associé
 
 ### FR-08 — Intégration GitLab
