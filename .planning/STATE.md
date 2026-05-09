@@ -1,14 +1,16 @@
 # Project State
 
 ## Current Status
-- **Phase:** 0 — Planning complete, ready to execute Phase 1
+- **Phase:** 1 — Bootstrap & Infrastructure (executing)
 - **Milestone:** 1 — v1.0 Foundation to Launch
 - **Last updated:** 2026-05-09
+- **Current focus:** Wave 1/3 — Next.js 15 init, TypeScript, Tailwind
+- **Plans:** 0/3 complete
 
 ## Phase Progress
 | Phase | Status |
 |-------|--------|
-| 1 — Bootstrap & Infra | 🔲 Not started |
+| 1 — Bootstrap & Infra | 🔄 In progress |
 | 2 — Auth & Workspaces | 🔲 Not started |
 | 3 — Core Task Management | 🔲 Not started |
 | 4 — Discord Integration | 🔲 Not started |
