@@ -1,8 +1,8 @@
 # Project State
 
 ## Current Status
-- **Phase:** 4 — Discord Integration (Complete: 3/3 plans)
-- **Current Plan:** 04-03 complete. Phase 4 terminée. Next: Phase 5 (GitLab Integration)
+- **Phase:** 5 — GitLab Integration (In progress: 1/2 plans)
+- **Current Plan:** 05-01 complete. Next: 05-02 (UI settings GitLab + lien retour TaskCard).
 - **Milestone:** 1 — v1.0 Foundation to Launch
 - **Last updated:** 2026-05-09
 
@@ -13,7 +13,7 @@
 | 2 — Auth & Workspaces | ✅ Complete (3/3 plans verified) |
 | 3 — Core Task Management | ✅ Complete (4/4 plans verified) |
 | 4 — Discord Integration | ✅ Complete (3/3 plans verified) |
-| 5 — GitLab Integration | 🔲 Not started |
+| 5 — GitLab Integration | 🚧 In progress (1/2 plans) |
 | 6 — Notifications & Polish | 🔲 Not started |
 
 ## Key Decisions
@@ -45,9 +45,14 @@
 - /api/users/me/discord et /api/workspaces/[id]/discord : PUT idempotent uniquement (pas de POST — un user/workspace a 0 ou 1 valeur)
 - Channel discordChannelId NULL → 204 No Content côté bot (pas une erreur)
 - DISCORD_BOT_NOTIFY_URL côté web (default http://discord-bot:8080/notify), NEXT_PUBLIC_APP_URL côté discord-bot (déjà APP_URL existait)
+- Webhook GitLab : auth via X-Gitlab-Token uniquement (pas de session NextAuth) avec `crypto.timingSafeEqual` constant-time
+- Idempotence webhook GitLab : findFirst({ workspaceId, gitlabIssueIid }) avant create — pas d'@unique global sur gitlabIssueIid (même IID possible dans 2 projets distincts)
+- createdById des tâches webhook = OWNER du workspace (user "système" pour les tâches créées via webhook GitLab)
+- Assignee webhook GitLab : best-effort par email + must already be member (sinon assigneeId = null, pas d'élévation T-05-07)
+- Logs serveur webhook : workspaceId only, jamais le secret ni le token reçu (T-05-03)
 
 ## Stopped At
-04-03-PLAN.md — Complete. Phase 4 (Discord Integration) terminée. Next: Phase 5 (GitLab Integration) — 05-01-PLAN.md à créer.
+05-01-PLAN.md — Complete. Schema Prisma étendu (Workspace + Task), endpoint webhook GitLab livré. Next: 05-02-PLAN.md (UI settings GitLab + API config + lien retour TaskCard).
 
 ## Last session
-2026-05-09 — Completed 04-03-PLAN.md: notify-server câblé vers discordChannelId, helper notifyDiscord fire-and-forget, branchement POST/PATCH tasks, API routes /api/workspaces/[id]/discord (OWNER) + /api/users/me/discord, UI WorkspaceDiscordSettings + UserDiscordSettings, page /profile, env vars docker-compose.
+2026-05-09 — Completed 05-01-PLAN.md: schema Prisma étendu (gitlabProjectId/gitlabBaseUrl/gitlabWebhookSecret sur Workspace + gitlabIssueIid/gitlabIssueUrl sur Task), endpoint POST /api/webhooks/gitlab/[workspaceId] avec validation X-Gitlab-Token (timingSafeEqual), idempotence par findFirst, mapping issue → tâche (open/close/reopen), priority dérivée des labels, tags upsertés, assignee best-effort par email, notifyDiscord("task.created") fire-and-forget. db push déféré Coolify (DB locale inaccessible).

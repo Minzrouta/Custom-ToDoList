@@ -106,7 +106,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 05-01-PLAN.md — Schema Prisma extensions GitLab + endpoint webhook /api/webhooks/gitlab/[workspaceId] (validation token timing-safe, mapping issue→tâche, idempotence, notify Discord) + [BLOCKING] db push
+- [x] 05-01-PLAN.md — Schema Prisma extensions GitLab + endpoint webhook /api/webhooks/gitlab/[workspaceId] (validation token timing-safe, mapping issue→tâche, idempotence, notify Discord) + [BLOCKING] db push
 - [ ] 05-02-PLAN.md — UI settings GitLab par workspace (PUT/DELETE OWNER-only avec génération secret randomBytes(32)) + lien retour issue sur TaskCard et TaskModal
 
 ### Phase 6: Notifications & Polish
@@ -139,5 +139,5 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Auth & Workspaces | 3/3 | ✅ Complete | 2026-05-09 |
 | 3. Core Task Management | 4/4 | ✅ Complete | 2026-05-09 |
 | 4. Discord Integration | 3/3 | ✅ Complete | 2026-05-09 |
-| 5. GitLab Integration | 0/2 | Not started | - |
+| 5. GitLab Integration | 1/2 | 🚧 In progress | - |
 | 6. Notifications & Polish | 0/3 | Not started | - |
