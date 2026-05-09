@@ -1,0 +1,59 @@
+# docker-compose.yml
+# Compatible Coolify 4.0 — contraintes appliquées :
+# 1. Pas de env_file (le fichier .env n'existe pas sur le serveur)
+# 2. NEXT_PUBLIC_* passées en build.args ET en environment (baked au build + disponibles au runtime)
+# 3. Label traefik.docker.network=coolify pour éviter le bug de routing réseau Traefik
+# 4. Réseau coolify déclaré comme external (existe déjà sur le VPS)
+# 5. Coolify injecte automatiquement les autres labels Traefik (traefik.enable, routers, etc.)
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # NEXT_PUBLIC_* sont baked au build — doivent être ici
+        NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://tasks.bantou.me}
+    environment:
+      # Variables runtime (non baked)
+      NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-https://tasks.bantou.me}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      # NEXT_PUBLIC_* répétées en environment pour accès runtime si besoin
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-https://tasks.bantou.me}
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - coolify
+    labels:
+      # CRITIQUE : indique à Traefik quel réseau Docker utiliser (évite le bug 504)
+      - "traefik.docker.network=coolify"
+    restart: unless-stopped
+
+  database:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-custom_todolist}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - coolify
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-custom_todolist}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  coolify:
+    external: true
