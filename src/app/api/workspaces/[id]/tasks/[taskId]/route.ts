@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { requireMembership } from "@/lib/auth-helpers";
 import { notifyDiscord } from "@/lib/discord-notify";
+import { notifyAssignment, notifyCompletion } from "@/lib/notifications";
 
 // GET /api/workspaces/[id]/tasks/[taskId] — détail complet
 export async function GET(
@@ -71,7 +72,7 @@ export async function PATCH(
     // Vérifier que la tâche appartient bien au workspace + récupérer l'ancien statut
     const existing = await prisma.task.findUnique({
       where: { id: taskId, workspaceId: id },
-      select: { id: true, status: true },
+      select: { id: true, status: true, assigneeId: true },
     });
     if (!existing) {
       return Response.json({ error: "Tâche introuvable" }, { status: 404 });
@@ -121,6 +122,32 @@ export async function PATCH(
           dueDate: task.dueDate,
         },
         actor: { name: session.user.name ?? null },
+      });
+    }
+
+    // Fire-and-forget : notifier le nouvel assignee si l'assignation a changé.
+    if (task.assigneeId !== existing.assigneeId) {
+      void notifyAssignment({
+        taskId: task.id,
+        taskTitle: task.title,
+        workspaceId: id,
+        oldAssigneeId: existing.assigneeId,
+        newAssigneeId: task.assigneeId,
+        actorId: session.user.id,
+        actorName: session.user.name ?? null,
+      });
+    }
+
+    // Fire-and-forget : si transition vers done, notifier l'assignee
+    // (cas où quelqu'un d'autre que l'assignee a complété la tâche).
+    if (transitionedToDone) {
+      void notifyCompletion({
+        taskId: task.id,
+        taskTitle: task.title,
+        workspaceId: id,
+        assigneeId: task.assigneeId,
+        actorId: session.user.id,
+        actorName: session.user.name ?? null,
       });
     }
 

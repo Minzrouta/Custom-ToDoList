@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { requireMembership } from "@/lib/auth-helpers";
 import { notifyDiscord } from "@/lib/discord-notify";
+import { notifyAssignment } from "@/lib/notifications";
 import { TaskStatus, Priority } from "@prisma/client";
 
 // GET /api/workspaces/[id]/tasks — liste avec filtres optionnels
@@ -123,6 +124,17 @@ export async function POST(
         dueDate: task.dueDate,
       },
       actor: { name: session.user.name ?? null },
+    });
+
+    // Fire-and-forget : notifier le nouvel assignee si tâche assignée à la création.
+    void notifyAssignment({
+      taskId: task.id,
+      taskTitle: task.title,
+      workspaceId: id,
+      oldAssigneeId: null,
+      newAssigneeId: task.assigneeId,
+      actorId: session.user.id,
+      actorName: session.user.name ?? null,
     });
 
     return Response.json({ data: task }, { status: 201 });
