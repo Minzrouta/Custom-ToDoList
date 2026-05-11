@@ -120,12 +120,12 @@ Plans:
   4. Recherche globale trouve des tâches par titre et description
   5. Page profil utilisateur affiche et permet de modifier nom/avatar
   6. README contient instructions déploiement Coolify complètes
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 06-01: Système notifications in-app (schema, API, badge, dropdown)
-- [ ] 06-02: Dark mode, recherche globale, page profil
-- [ ] 06-03: README, documentation déploiement, polish final
+- [ ] 06-01-PLAN.md — Schema Prisma Notification + helper fire-and-forget + 3 routes API + hooks tasks (assignation/complétion) + [BLOCKING] db push
+- [ ] 06-02-PLAN.md — Header étendu (dropdown notifs + dark mode toggle + search) + page /search + page /profile étendue + PATCH /api/users/me
+- [ ] 06-03-PLAN.md — README.md complet (déploiement Coolify, archi, GSD) + .env.example exhaustif + audit a11y boutons icon-only
 
 ## Progress
 
