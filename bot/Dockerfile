@@ -25,6 +25,7 @@ COPY prisma ./prisma
 RUN npx --yes prisma@5.22.0 generate --schema=./prisma/schema.prisma
 
 # Copier le code du bot
+COPY bot/package.json ./package.json
 COPY bot/tsconfig.json ./tsconfig.json
 COPY bot/src ./src
 
