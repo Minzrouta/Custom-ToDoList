@@ -1,8 +1,8 @@
 # Project State
 
 ## Current Status
-- **Phase:** 6 — Notifications & Polish (next, final phase)
-- **Current Plan:** Phase 5 complete (2/2 plans verified)
+- **Phase:** 6 — Notifications & Polish (in progress)
+- **Current Plan:** 06-01 complete, next is 06-02
 - **Milestone:** 1 — v1.0 Foundation to Launch
 - **Last updated:** 2026-05-11
 
@@ -14,7 +14,7 @@
 | 3 — Core Task Management | ✅ Complete (4/4 plans verified) |
 | 4 — Discord Integration | ✅ Complete (3/3 plans verified) |
 | 5 — GitLab Integration | ✅ Complete (2/2 plans verified) |
-| 6 — Notifications & Polish | 🔲 Not started |
+| 6 — Notifications & Polish | 🟡 In progress (1/? plans verified) |
 
 ## Key Decisions
 - OAuth uniquement (Google + GitHub) — pas d'email/password
@@ -50,9 +50,14 @@
 - createdById des tâches webhook = OWNER du workspace (user "système" pour les tâches créées via webhook GitLab)
 - Assignee webhook GitLab : best-effort par email + must already be member (sinon assigneeId = null, pas d'élévation T-05-07)
 - Logs serveur webhook : workspaceId only, jamais le secret ni le token reçu (T-05-03)
+- Notifications in-app : modèle Prisma Notification + enum NotificationType (task_assigned, task_due_soon, task_completed, task_mentioned), index composite (userId, readAt, createdAt DESC) pour servir badge + dropdown
+- Helpers notifications fire-and-forget (src/lib/notifications.ts) : createNotification / notifyAssignment / notifyCompletion, jamais throw (try/catch + console.warn)
+- Routes API notifications scopées par userId (pas requireMembership) : GET /api/notifications + PATCH [id] (idempotent) + POST mark-all-read
+- task_due_soon non générée en DB par les routes : computed at fetch time (décision CONTEXT). task_mentioned déférée v2.
+- Hooks notifs intégrés dans POST + PATCH tasks via `void notifyAssignment(...)` et `void notifyCompletion(...)` — jamais await
 
 ## Stopped At
-05-01-PLAN.md — Complete. Schema Prisma étendu (Workspace + Task), endpoint webhook GitLab livré. Next: 05-02-PLAN.md (UI settings GitLab + API config + lien retour TaskCard).
+06-01-PLAN.md — Complete. Backend notifications complet (modèle Prisma + helpers + 3 routes API + hooks dans POST/PATCH tasks). Next: 06-02-PLAN.md (UI badge + dropdown header, dark mode toggle, recherche globale, page profil).
 
 ## Last session
-2026-05-09 — Completed 05-01-PLAN.md: schema Prisma étendu (gitlabProjectId/gitlabBaseUrl/gitlabWebhookSecret sur Workspace + gitlabIssueIid/gitlabIssueUrl sur Task), endpoint POST /api/webhooks/gitlab/[workspaceId] avec validation X-Gitlab-Token (timingSafeEqual), idempotence par findFirst, mapping issue → tâche (open/close/reopen), priority dérivée des labels, tags upsertés, assignee best-effort par email, notifyDiscord("task.created") fire-and-forget. db push déféré Coolify (DB locale inaccessible).
+2026-05-11 — Completed 06-01-PLAN.md: modèle Prisma Notification + enum NotificationType (push DB différée Coolify, prisma generate OK), src/lib/notifications.ts (3 helpers fire-and-forget), 3 routes API (/api/notifications GET list+unreadCount, /api/notifications/[id] PATCH read idempotent, /api/notifications/mark-all-read POST updateMany), hooks dans POST /api/workspaces/[id]/tasks et PATCH /api/workspaces/[id]/tasks/[taskId] (assignment change + transition done → notifyCompletion).

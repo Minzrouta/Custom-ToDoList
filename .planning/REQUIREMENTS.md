@@ -56,9 +56,10 @@
 - Lien retour vers l'issue GitLab sur la tâche
 - Config par workspace : repo GitLab associé + secret webhook
 
-### FR-09 — Notifications
+### FR-09 — Notifications ✅ (backend livré — 06-01)
 - Notifications in-app (badge, dropdown)
 - Événements notifiés : assignation, mention, due date proche, tâche complétée
+- Backend (modèle Prisma + helpers fire-and-forget + 3 routes API + hooks tasks) livré en 06-01 ; UI badge/dropdown à venir en 06-02
 
 ## Non-Functional Requirements
 
