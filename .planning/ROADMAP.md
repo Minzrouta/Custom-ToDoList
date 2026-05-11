@@ -14,7 +14,7 @@ Application web de gestion de tâches multi-utilisateur auto-hébergée. Le proj
 - [x] **Phase 2: Auth & Workspaces** - OAuth Google/GitHub, workspaces multi-user
 - [x] **Phase 3: Core Task Management** - CRUD tâches, catégories, tags, Kanban, liste
 - [x] **Phase 4: Discord Integration** - Bot slash commands + notifications
-- [ ] **Phase 5: GitLab Integration** - Webhooks entrants, import issues
+- [x] **Phase 5: GitLab Integration** - Webhooks entrants, import issues
 - [ ] **Phase 6: Notifications & Polish** - Notifications in-app, dark mode, recherche, finition
 
 ## Phase Details
@@ -139,5 +139,5 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5 → 6
 | 2. Auth & Workspaces | 3/3 | ✅ Complete | 2026-05-09 |
 | 3. Core Task Management | 4/4 | ✅ Complete | 2026-05-09 |
 | 4. Discord Integration | 3/3 | ✅ Complete | 2026-05-09 |
-| 5. GitLab Integration | 1/2 | 🚧 In progress | - |
+| 5. GitLab Integration | 2/2 | ✅ Complete | 2026-05-11 |
 | 6. Notifications & Polish | 0/3 | Not started | - |

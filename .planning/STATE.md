@@ -1,10 +1,10 @@
 # Project State
 
 ## Current Status
-- **Phase:** 5 — GitLab Integration (In progress: 1/2 plans)
-- **Current Plan:** 05-01 complete. Next: 05-02 (UI settings GitLab + lien retour TaskCard).
+- **Phase:** 6 — Notifications & Polish (next, final phase)
+- **Current Plan:** Phase 5 complete (2/2 plans verified)
 - **Milestone:** 1 — v1.0 Foundation to Launch
-- **Last updated:** 2026-05-09
+- **Last updated:** 2026-05-11
 
 ## Phase Progress
 | Phase | Status |
@@ -13,7 +13,7 @@
 | 2 — Auth & Workspaces | ✅ Complete (3/3 plans verified) |
 | 3 — Core Task Management | ✅ Complete (4/4 plans verified) |
 | 4 — Discord Integration | ✅ Complete (3/3 plans verified) |
-| 5 — GitLab Integration | 🚧 In progress (1/2 plans) |
+| 5 — GitLab Integration | ✅ Complete (2/2 plans verified) |
 | 6 — Notifications & Polish | 🔲 Not started |
 
 ## Key Decisions
