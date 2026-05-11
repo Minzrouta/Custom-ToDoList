@@ -20,34 +20,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   session: { strategy: "database" },
   callbacks: {
-    async signIn({ user }) {
-      // Créer les workspaces par défaut au premier login
-      if (user.id) {
-        const existing = await prisma.workspaceMember.findFirst({
-          where: { userId: user.id },
-        });
-        if (!existing) {
-          const defaults = ["Boulot", "Ecole", "Perso"];
-          for (const name of defaults) {
-            const workspace = await prisma.workspace.create({
-              data: { name },
-            });
-            await prisma.workspaceMember.create({
-              data: {
-                userId: user.id,
-                workspaceId: workspace.id,
-                role: "OWNER",
-              },
-            });
-          }
-        }
-      }
-      return true;
-    },
     async session({ session, user }) {
       // Exposer l'ID utilisateur dans la session
       session.user.id = user.id;
       return session;
+    },
+  },
+  events: {
+    async createUser({ user }) {
+      // Créer les workspaces par défaut juste après la création initiale du user
+      // (signIn callback se déclenche AVANT la persistance — d'où l'event createUser)
+      if (!user.id) return;
+      const defaults = ["Boulot", "Ecole", "Perso"];
+      for (const name of defaults) {
+        const workspace = await prisma.workspace.create({ data: { name } });
+        await prisma.workspaceMember.create({
+          data: {
+            userId: user.id,
+            workspaceId: workspace.id,
+            role: "OWNER",
+          },
+        });
+      }
     },
   },
   pages: {
