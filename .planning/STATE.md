@@ -1,9 +1,9 @@
 # Project State
 
 ## Current Status
-- **Phase:** 6 — Notifications & Polish (in progress)
-- **Current Plan:** 06-02 complete, next is 06-03
-- **Milestone:** 1 — v1.0 Foundation to Launch
+- **Phase:** 6 — Notifications & Polish ✅ Complete (3/3 plans verified)
+- **Current Plan:** All plans complete — v1.0 SHIPPABLE
+- **Milestone:** 1 — v1.0 Foundation to Launch ✅ DONE
 - **Last updated:** 2026-05-11
 
 ## Phase Progress
@@ -14,7 +14,7 @@
 | 3 — Core Task Management | ✅ Complete (4/4 plans verified) |
 | 4 — Discord Integration | ✅ Complete (3/3 plans verified) |
 | 5 — GitLab Integration | ✅ Complete (2/2 plans verified) |
-| 6 — Notifications & Polish | 🟡 In progress (2/3 plans verified) |
+| 6 — Notifications & Polish | ✅ Complete (3/3 plans verified) |
 
 ## Key Decisions
 - OAuth uniquement (Google + GitHub) — pas d'email/password
@@ -64,7 +64,12 @@
 - SearchInput hidden md:block, username avatar hidden lg:inline (responsive NFR-04 mobile-first)
 
 ## Stopped At
-06-02-PLAN.md — Complete. UI Header (dropdown notifs + dark toggle + search input), page /search server scopée membership, /profile étendue avec ProfileForm, route PATCH /api/users/me. Next: 06-03-PLAN.md (README Coolify + .env.example + audit a11y).
+06-03-PLAN.md — Complete. README.md production-ready (171 lignes : déploiement Coolify, archi ASCII, GSD), .env.example exhaustif (toutes vars utilisées par le code), audit a11y des 4 modals/actions (RAS — aucun bouton icon-only). v1.0 SHIPPABLE.
 
 ## Last session
-2026-05-11 — Completed 06-02-PLAN.md: 4 nouveaux composants UI (NotificationsDropdown polling+optimistic, ThemeToggle mounted-check, SearchInput hidden md:block, ProfileForm name+image), Header.tsx refactor 3 zones, page server /search (membership-scoped Prisma findMany, ILIKE title|description, take 50), /profile étendue avec section Compte + Intégrations, route PATCH /api/users/me (validation name ≤100 + URL http(s) stricte). TS clean, build OK (14 pages générées).
+2026-05-11 — Completed 06-03-PLAN.md (FINAL): README.md remplacé par doc projet complète (10 sections, 171 lignes, diagramme ASCII archi, 8 étapes déploiement Coolify, gotchas, lien GSD), .env.example exhaustif aligné sur le code (DATABASE_URL, POSTGRES_*, NEXTAUTH_*, AUTH_GOOGLE_*, AUTH_GITHUB_*, NEXT_PUBLIC_APP_URL, DISCORD_TOKEN, DISCORD_CLIENT_ID, DISCORD_BOT_NOTIFY_URL, NOTIFY_PORT), audit a11y modals/actions (aucun bouton icon-only à corriger). TS clean, `npm run build` Compiled successfully in 10.8s (14 pages). 7 lint errors préexistantes (phases 02/05/06-02) hors scope — deferred v1.1.
+
+## Decision (final plan)
+- README.md : section "Tests" absente (volontaire — pas de tests automatisés en v1.0)
+- Audit a11y : limité aux 4 fichiers ciblés par le plan ; modals/actions n'ont AUCUN bouton icon-only (tous ont du texte visible "Annuler", "Inviter", etc.)
+- Lint errors préexistantes (react/no-unescaped-entities, react-hooks/set-state-in-effect) laissées en l'état — hors scope plan 06-03 qui ne touche que README.md et .env.example

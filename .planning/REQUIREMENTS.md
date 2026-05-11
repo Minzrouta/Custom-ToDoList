@@ -64,9 +64,12 @@
 
 ## Non-Functional Requirements
 
-### NFR-01 — Performance
+### NFR-01 — Performance / Doc déploiement ✅ (livré — 06-03)
 - First Contentful Paint < 1.5s
 - API responses < 200ms (opérations CRUD)
+- README.md production-ready avec instructions Coolify complètes (8 étapes + gotchas)
+- `.env.example` exhaustif (toutes les vars réellement utilisées par le code)
+- `npm run build` clean en 10.8s (14 pages générées)
 
 ### NFR-02 — Sécurité
 - Isolation stricte des workspaces (un user ne peut pas voir les tâches d'un autre workspace sans invitation)
@@ -78,12 +81,13 @@
 - Variables d'environnement via Coolify (pas de .env committé)
 - Health check endpoint `/api/health`
 
-### NFR-04 — UX ✅ (livré — 06-02)
+### NFR-04 — UX ✅ (livré — 06-02 + a11y final 06-03)
 - Responsive (mobile-first pour la vue liste) — SearchInput hidden md:block, username hidden lg:inline
 - Dark mode supporté — ThemeToggle next-themes avec mounted-check (pas de hydration mismatch)
 - Interface en français
 - Page profil avec édition nom + URL avatar (PATCH /api/users/me)
 - Recherche globale /search scopée par membership (NFR-02 préservé)
+- A11y : boutons icon-only du Header (cloche notifs, soleil/lune theme, search submit) ont aria-label (06-02). Audit final modals/actions (06-03) : aucun bouton icon-only à corriger (tous ont du texte visible).
 
 ## Out of Scope (v1)
 - App mobile native
