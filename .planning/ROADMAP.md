@@ -124,7 +124,7 @@ Plans:
 
 Plans:
 - [x] 06-01-PLAN.md — Schema Prisma Notification + helper fire-and-forget + 3 routes API + hooks tasks (assignation/complétion) + [BLOCKING] db push
-- [ ] 06-02-PLAN.md — Header étendu (dropdown notifs + dark mode toggle + search) + page /search + page /profile étendue + PATCH /api/users/me
+- [x] 06-02-PLAN.md — Header étendu (dropdown notifs + dark mode toggle + search) + page /search + page /profile étendue + PATCH /api/users/me
 - [ ] 06-03-PLAN.md — README.md complet (déploiement Coolify, archi, GSD) + .env.example exhaustif + audit a11y boutons icon-only
 
 ## Progress
@@ -140,4 +140,4 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Core Task Management | 4/4 | ✅ Complete | 2026-05-09 |
 | 4. Discord Integration | 3/3 | ✅ Complete | 2026-05-09 |
 | 5. GitLab Integration | 2/2 | ✅ Complete | 2026-05-11 |
-| 6. Notifications & Polish | 1/3 | 🟡 In progress | - |
+| 6. Notifications & Polish | 2/3 | 🟡 In progress | - |

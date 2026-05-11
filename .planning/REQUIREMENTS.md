@@ -56,10 +56,11 @@
 - Lien retour vers l'issue GitLab sur la tâche
 - Config par workspace : repo GitLab associé + secret webhook
 
-### FR-09 — Notifications ✅ (backend livré — 06-01)
+### FR-09 — Notifications ✅ (complet — backend 06-01 + UI 06-02)
 - Notifications in-app (badge, dropdown)
 - Événements notifiés : assignation, mention, due date proche, tâche complétée
-- Backend (modèle Prisma + helpers fire-and-forget + 3 routes API + hooks tasks) livré en 06-01 ; UI badge/dropdown à venir en 06-02
+- Backend (modèle Prisma + helpers fire-and-forget + 3 routes API + hooks tasks) livré en 06-01
+- UI (NotificationsDropdown header : badge + 10 dernières notifs + mark-all-read + polling 60s + onFocus revalidation, optimistic UI) livrée en 06-02
 
 ## Non-Functional Requirements
 
@@ -77,10 +78,12 @@
 - Variables d'environnement via Coolify (pas de .env committé)
 - Health check endpoint `/api/health`
 
-### NFR-04 — UX
-- Responsive (mobile-first pour la vue liste)
-- Dark mode supporté
+### NFR-04 — UX ✅ (livré — 06-02)
+- Responsive (mobile-first pour la vue liste) — SearchInput hidden md:block, username hidden lg:inline
+- Dark mode supporté — ThemeToggle next-themes avec mounted-check (pas de hydration mismatch)
 - Interface en français
+- Page profil avec édition nom + URL avatar (PATCH /api/users/me)
+- Recherche globale /search scopée par membership (NFR-02 préservé)
 
 ## Out of Scope (v1)
 - App mobile native

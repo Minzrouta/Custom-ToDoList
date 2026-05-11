@@ -2,7 +2,7 @@
 
 ## Current Status
 - **Phase:** 6 — Notifications & Polish (in progress)
-- **Current Plan:** 06-01 complete, next is 06-02
+- **Current Plan:** 06-02 complete, next is 06-03
 - **Milestone:** 1 — v1.0 Foundation to Launch
 - **Last updated:** 2026-05-11
 
@@ -14,7 +14,7 @@
 | 3 — Core Task Management | ✅ Complete (4/4 plans verified) |
 | 4 — Discord Integration | ✅ Complete (3/3 plans verified) |
 | 5 — GitLab Integration | ✅ Complete (2/2 plans verified) |
-| 6 — Notifications & Polish | 🟡 In progress (1/? plans verified) |
+| 6 — Notifications & Polish | 🟡 In progress (2/3 plans verified) |
 
 ## Key Decisions
 - OAuth uniquement (Google + GitHub) — pas d'email/password
@@ -55,9 +55,16 @@
 - Routes API notifications scopées par userId (pas requireMembership) : GET /api/notifications + PATCH [id] (idempotent) + POST mark-all-read
 - task_due_soon non générée en DB par les routes : computed at fetch time (décision CONTEXT). task_mentioned déférée v2.
 - Hooks notifs intégrés dans POST + PATCH tasks via `void notifyAssignment(...)` et `void notifyCompletion(...)` — jamais await
+- NotificationsDropdown : polling 60s + onFocus revalidation (alternative bon marché à WebSocket/SSE pour MVP)
+- ThemeToggle next-themes : mounted-check obligatoire pour éviter hydration mismatch + placeholder SVG vide pendant mount (pas de flash)
+- Optimistic UI mark-as-read : state local mis à jour AVANT le PATCH, fire-and-forget (catch silencieux). Pour mark-all-read : rollback complet sur erreur.
+- /search : page server avec scope membership strict (`workspaceId: { in: workspaceIds }`) — NFR-02 isolation par construction. `mode: "insensitive"` Prisma sur title+description, take: 50 (pagination v2)
+- PATCH /api/users/me : patch partiel (name et image indépendamment optionnels), validation URL http(s) stricte avec `new URL(...)`, name trim ≤ 100 chars
+- Header redesign 3 zones (brand / SearchInput centré flex-1 / actions) — API HeaderProps inchangée (zero breaking change pour les 5 pages consommatrices)
+- SearchInput hidden md:block, username avatar hidden lg:inline (responsive NFR-04 mobile-first)
 
 ## Stopped At
-06-01-PLAN.md — Complete. Backend notifications complet (modèle Prisma + helpers + 3 routes API + hooks dans POST/PATCH tasks). Next: 06-02-PLAN.md (UI badge + dropdown header, dark mode toggle, recherche globale, page profil).
+06-02-PLAN.md — Complete. UI Header (dropdown notifs + dark toggle + search input), page /search server scopée membership, /profile étendue avec ProfileForm, route PATCH /api/users/me. Next: 06-03-PLAN.md (README Coolify + .env.example + audit a11y).
 
 ## Last session
-2026-05-11 — Completed 06-01-PLAN.md: modèle Prisma Notification + enum NotificationType (push DB différée Coolify, prisma generate OK), src/lib/notifications.ts (3 helpers fire-and-forget), 3 routes API (/api/notifications GET list+unreadCount, /api/notifications/[id] PATCH read idempotent, /api/notifications/mark-all-read POST updateMany), hooks dans POST /api/workspaces/[id]/tasks et PATCH /api/workspaces/[id]/tasks/[taskId] (assignment change + transition done → notifyCompletion).
+2026-05-11 — Completed 06-02-PLAN.md: 4 nouveaux composants UI (NotificationsDropdown polling+optimistic, ThemeToggle mounted-check, SearchInput hidden md:block, ProfileForm name+image), Header.tsx refactor 3 zones, page server /search (membership-scoped Prisma findMany, ILIKE title|description, take 50), /profile étendue avec section Compte + Intégrations, route PATCH /api/users/me (validation name ≤100 + URL http(s) stricte). TS clean, build OK (14 pages générées).
