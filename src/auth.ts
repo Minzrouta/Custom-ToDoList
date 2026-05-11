@@ -7,6 +7,7 @@ import { prisma } from "@/lib/prisma";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
+  trustHost: true, // Derrière Traefik/Coolify — l'host vient du reverse proxy
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID!,
